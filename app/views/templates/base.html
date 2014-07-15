@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ pagetitle }}</title>
+        <link rel="stylesheet" href="/mvctodolist/public/css/main.css" type="text/css" />
+            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>  
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="/mvctodolist/public/js/index.js"></script>
+        <style media = "screen" type = 'text/css'>
+            #header { background-color: #ddd; 
+                          color: #888; 
+                          margin: 0; 
+                          height: 50px
+                        }
+        </style>
+    </head>
+    
+    <body>
+        <header id = 'header'>
+            <div id="menu">
+                <ul>
+                    <li><a href = '/mvctodolist/public'>Home</a></li>
+                    <li><a href = '/mvctodolist/public/newitem'>Create Todo</a></li>
+                </ul>
+            </div>    
+    </header>
+    <div class="main-title">
+        {{ pagetitle }}
+    </div>
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>
+    

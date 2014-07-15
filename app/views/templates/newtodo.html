@@ -1,0 +1,15 @@
+{% extends 'templates/base.html' %}
+
+{% block content %}
+<div>New Todo</div>
+
+<form method= 'POST' >
+    <label for="content">Todo</label>
+    <textarea type="text" name="content" rows="10" cols="20">{{ content }}</textarea><span class="error">{{ error_content }}</span>
+    <br>
+    <br>
+    <div class='error'>{{ error }}</div>
+    <button>Submit</button>   
+</form>
+
+{% endblock %}
