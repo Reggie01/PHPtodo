@@ -21,99 +21,49 @@
                       
            $this->render('templates/todos.html', ['todos'=>$listOfTodos, 'pagetitle'=>'Todos']);
         }
-        
-        public function post() {
-        
-        }
-        
+             
         public function edit($value){
             echo $this->getServerRequest();
             
             if($this->getServerRequest() == 'POST') {
-                $this->editPost($value);
+                return $this->editPost($value);
             }
             
-            $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-            if ($mysqli->connect_errno){
-                echo "Databse failed to connect " . $mysqli->connect_error;
-                die();
-            }
+            $todo = $this->model('Todo');
+            $item = $todo->getEditPage($value);
             
-            $query = 'SELECT * FROM ' . LIST_TABLE . ' WHERE id = ' . $value;
-            if ($res = $mysqli->query($query)) {
-                if ($res->num_rows > 0){
-                    $row = $res->fetch_assoc();
-                    $item = $this->model('Todo');
-                    $item->id = $row['id'];
-                    $item->item = $row['list']; 
-                }
-                else{
-                    $error = "Record $value does not exist";
-                    header("Location:/mvctodolist/public/home/error");                    
-                }
-                
-            } else {
-                echo hello;
-                $error = "Record $value does not exist";
-                $this->render('templates/edit.html', ['error_content'=>$error]);
-            }
-            
-            $res->free();
-            
-            $mysqli->close();
-            
-            $this->render('templates/edit.html', ['content'=>$item->item, 'pagetitle'=>'Edit Todo']);
+            $this->render('templates/edit.html', ['content'=>$item['item'], 'pagetitle'=>'Edit Todo']);
                         
         }
         
         public function editPost($value){
             
-            if(isset($_POST['content'])){
+            if(!empty($_POST['content'])){
                 $updatedContent = $_POST['content'];
+            } else {
+                 
+                 return $this->render('templates/edit.html', ['pagetitle'=>'Edit Todo', 'error'=>'Don\'t forget to edit content']);
+                 
             }
             
-            $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-            if ($mysqli->connect_errno){
-                echo 'Database failed to connect ' . $query->connect_error;
-                die();
-            }
-            
-            $query = 'UPDATE '. LIST_TABLE . " Set list = '$updatedContent' Where id = '$value'"; 
-            
-            if ($res = $mysqli->query($query)) {
-                $mysqli->query($query);
-                
-            } else{
-                 "Record $value does not exist";
-            }
-            
-            $mysqli->close();
-            
+            $todo = $this->model('Todo');
+            $todo->update($value, $updatedContent);
+                        
             header('Location:/mvctodolist/public');
             
         }
         
         public function delete($value){
-            $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-            if($mysqli->connect_errno){
-                echo 'Database failed to connect ' . $query->connect_error;
-                die();
-            }
             
-            $query = 'DELETE FROM ' . LIST_TABLE . " WHERE id = '$value'";
-            
-            echo $query;
-            
-            $mysqli->query($query);
-            
-            $mysqli->close();
+            $todo = $this->model('Todo');
+            $todo->delete($value);
             
             header('Location:/mvctodolist/public');
         }
         
         public function error(){
         
-            $this->render('templates/error.html');
+            $this->render('templates/error.html', ['pagetitle'=>'ERROR']);
         }
         
     }
