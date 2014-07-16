@@ -100,6 +100,21 @@
             
             return $item;
         }
+        
+        public function createTodo($todo) {
+            
+            $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+            if($mysqli->connect_errno){
+                echo "Failed to connect to db " . $mysqli->connect_error;
+                die();
+            }
+                        
+            $query = 'INSERT INTO ' . LIST_TABLE . "(list)VALUES('$todo')";
+                        
+            $mysqli->query($query);
+            
+            $mysqli->close();
+        }
     
     }
 

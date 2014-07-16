@@ -16,32 +16,20 @@
         }
         
         public function get(){
-           $this->render('templates/newpost.html', ['pagetitle'=>'New Todo']);
+           $this->render('templates/newtodo.html', ['pagetitle'=>'Create Todo']);
         }
         
         public function post() {
             
-            $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-            if($mysqli->connect_errno){
-                echo "Failed to connect to db " . $mysqli->connect_error;
-                die();
-            }
-                        
-            if (isset($_POST['content'])) {
-                $list = $_POST['content'];
+            if (!empty($_POST['content'])) {
+                $newTodo = $_POST['content'];
+            } else {
+                return $this->render('templates/newtodo.html', ['pagetitle'=>'New Todo', 'error'=>'Please fill out form']);
             }
             
-            $query = 'INSERT INTO ' . LIST_TABLE . "(list)VALUES('$list')";
-            
-            print_r($query);
-            
-            $mysqli->query($query);
-            
-            $mysqli->close();
-            
-            $root = $_SERVER['DOCUMENT_ROOT'];
-           
-            //echo $root.'/mvctodolist/public/home';
+            $todo = $this->model('Todo');
+            $todo->createTodo($newTodo);
+                   
             header('Location:/mvctodolist/public/home');
             
         }
