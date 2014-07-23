@@ -63,7 +63,7 @@
             /** salt should be kept in a separate file **/
             
             $salt = 'jenkins';
-            $securepass = ('sha256', $password, $salt);
+            $securepass = hash_hmac('sha256', $password, $salt);
             return $securepass;
         }
         

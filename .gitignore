@@ -13,3 +13,4 @@ app/dbconstants.php
 
 .DS_Store
 .DS_Store?
+/nbproject/private/
