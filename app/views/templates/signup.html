@@ -3,22 +3,18 @@
 {% block content %}
 
 <form method="Post" action = 'signup'>
-    <label for="username">
+    <label for="username"></label>
         <div>Username: </div>
         <input type="text" name="username" value="{{ username }}" /><span>{{ error.error_username }}</span>
-    </label>
-    <label for="password">
+    
+    <label for="password"></label>
         <div>Password: </div>
         <input type="password" name="password" value="" /><span>{{ error.error_password }}</span>
-    </label>    
-    <label for = "verify">
+        
+    <label for = "verify"></label>
         <div>Verify</div>
         <input type="password" name="verify" value="" /><span>{{ error.error_verify }}</span>
-    </label>
-    <label for="email">
-        <div>Email</div>
-        <input type="text" name="email" value="{{ email }}" /><span>{{ error.error_email }}</span>
-    </label>
+    
     <br>
     <br>
     <button>Submit</button>

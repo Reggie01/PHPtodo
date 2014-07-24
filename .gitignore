@@ -2,11 +2,13 @@
 # Database Info #
 #################
 app/dbconstants.php
+app/security.php
 
 # Logs and databases #
 ######################
 *.log
 *.sql
+app/logs/
 
 # OS generated files #
 ######################

@@ -1,5 +1,4 @@
 <?php
-    
-    require_once $_SERVER['DOCUMENT_ROOT'].'/mvctodolist/app/init.php';
 
+require_once $_SERVER['DOCUMENT_ROOT'] . '/mvctodolist/app/init.php';
 ?>
