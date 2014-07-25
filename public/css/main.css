@@ -1,39 +1,41 @@
 /** button **/
 
 .button {
-   border-top: 1px solid #96d1f8;
-   background: #65a9d7;
-   background: -webkit-gradient(linear, left top, left bottom, from(#3e779d), to(#65a9d7));
-   background: -webkit-linear-gradient(top, #3e779d, #65a9d7);
-   background: -moz-linear-gradient(top, #3e779d, #65a9d7);
-   background: -ms-linear-gradient(top, #3e779d, #65a9d7);
-   background: -o-linear-gradient(top, #3e779d, #65a9d7);
-   padding: 5px 10px;
-   -webkit-border-radius: 8px;
-   -moz-border-radius: 8px;
-   border-radius: 8px;
-   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
-   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
-   box-shadow: rgba(0,0,0,1) 0 1px 0;
-   text-shadow: rgba(0,0,0,.4) 0 1px 0;
-   color: white;
-   font-size: 14px;
-   font-family: Georgia, serif;
-   text-decoration: none;
-   vertical-align: middle;
-   margin-left: 10px;
+    border-top: 1px solid #96d1f8;
+    background: #65a9d7;
+    background: -webkit-gradient(linear, left top, left bottom, from(#3e779d), to(#65a9d7));
+    background: -webkit-linear-gradient(top, #3e779d, #65a9d7);
+    background: -moz-linear-gradient(top, #3e779d, #65a9d7);
+    background: -ms-linear-gradient(top, #3e779d, #65a9d7);
+    background: -o-linear-gradient(top, #3e779d, #65a9d7);
+    padding: 5px 10px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+    -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+    box-shadow: rgba(0,0,0,1) 0 1px 0;
+    text-shadow: rgba(0,0,0,.4) 0 1px 0;
+    color: white;
+    font-size: 14px;
+    font-family: Georgia, serif;
+    text-decoration: none;
+    vertical-align: middle;
+    margin-left: 10px;
 }
 
 .button:hover {
-   border-top-color: #28597a;
-   background: #28597a;
-   color: #ccc;
+    border-top-color: #28597a;
+    background: #28597a;
+    color: #ccc;
 }
-   
+
 .button:active {
-   border-top-color: #1b435e;
-   background: #1b435e;
+    border-top-color: #1b435e;
+    background: #1b435e;
 }
+
+/** Post **/
 
 .post a {
     text-decoration: none;
@@ -44,13 +46,12 @@
 .post a:hover{
     color: #70728A;
 }
-   
+
 body {
     position: relative;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 14px;
-
-    width: 800px;
+    width: 1000px;
     margin: 0 auto;
     padding: 10px;
     color: #333;
@@ -92,8 +93,8 @@ h2 {
 }
 
 label {
-  display: block;
-  font-size: 20px;
+    display: block;
+    font-size: 20px;
 }
 
 label + label {
@@ -108,14 +109,14 @@ input[type=text] {
 }
 
 textarea {
-  width: 500px;
-  height: 400px;
-  font-size: 17px;
-  font-family: monospace;
+    width: 500px;
+    height: 400px;
+    font-size: 17px;
+    font-family: monospace;
 }
 
 input[type=submit] {
-  font-size: 24px;
+    font-size: 24px;
 }
 
 input[type=password] {
@@ -123,7 +124,7 @@ input[type=password] {
     font-size: 20px;
     padding: 2px;
     font-family: monospace;
-  
+
 }
 
 .main-title {
@@ -187,10 +188,19 @@ input[type=password] {
     clear:both;
 }
 
+/** Container **/
+
+.container{
+    
+    width: 800px;
+    margin: 0 auto;
+}
+
+
 /**  Navigation Bar **/
 
 #menu {
-    width: 400px;
+    width: 800px;
     height: 35px;
     font-size: 16px;
     font-family: Tahoma, Geneva, sans-serif;
@@ -220,4 +230,3 @@ input[type=password] {
     background-color: #FFF;
 }
 
-   

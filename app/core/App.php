@@ -9,7 +9,16 @@ class App {
     public function __construct() {
 
         $url = $this->parseUrl();
-
+        $logger = Logger::getInstance();
+        $logger->info('Is the url empty.');
+        if(isset($url)) {
+            foreach($url as $item){
+                $logger->info('Items in url: ');
+                $logger->info($item);
+            }
+        }
+        $logger->info('End of items in url');
+        
         $file = $_SERVER['DOCUMENT_ROOT'] . "/mvctodolist/app/controllers/" . $url[0] . '.php';
 
         if (file_exists($file)) {
@@ -34,6 +43,9 @@ class App {
         call_user_func_array([$this->controller, $this->method], $this->params);
     }
 
+    /*
+     * @return array
+     */
     public function parseUrl() {
 
         if (isset($_GET['url'])) {

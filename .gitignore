@@ -9,6 +9,7 @@ app/security.php
 *.log
 *.sql
 app/logs/
+app/core/logs
 
 # OS generated files #
 ######################
