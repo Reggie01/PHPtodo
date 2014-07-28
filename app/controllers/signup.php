@@ -46,15 +46,6 @@ class SignUp extends Controller {
             $have_error = TRUE;
         }
 
-//        if (!empty($_POST['verify'])) {
-//            $verify = $_POST['verify'];
-//            $logger->debug('Verifying password.');
-//            if (!($verify === $password)) {
-//                $logger->debug('Passwords did not match');
-//                $errors['error_verify'] = 'Passwords don\'t match';
-//                $have_error = TRUE;
-//            }
-//        } else {
         $logger->debug('Verifying password and username.');
         if (!$validation->verifyPassword($password, $password_verification)) {
             $errors['error_verify'] = 'Passwords don\'t match';

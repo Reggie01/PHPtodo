@@ -1,77 +1,77 @@
 <?php
 
 class Login extends Controller {
-    
-    
-    public function __construct(){
+
+    public function __construct() {
+        
     }
-    
-    public function index(){
+
+    public function index() {
         $logger = Logger::getInstance();
         $logger->debug('Getting server Request for login page');
         $request = $this->getServerRequest();
-        
-        if($request == 'GET') {
-            $this->get();
+
+        if ($request == 'GET') {
             $logger->debug('Server Request: GET');
+            $this->get();
         }
-        if($request == 'POST') {
-            $this->post();
+        if ($request == 'POST') {
             $logger->debug('Server Request: Post');
+            $this->post();
         }
     }
-    
-    
-    public function get(){
+
+    public function get() {
         $logger = Logger::getInstance();
         $logger->debug('Rendering login page.');
-        $this->render('templates/login.html.twig', ['pagetitle'=>'login']);
+        $this->render('templates/login.html.twig', ['pagetitle' => 'login']);
     }
-    
-    public function post(){
+
+    public function post() {
         $logger = Logger::getInstance();
-        
         $have_error = FALSE;
         $errors = [];
-        
-        if (!validUserName()){
+        $username = $_POST['userid'];
+        $password = $_POST['pass'];
+        $logger->debug("Users password: " . $password);
+        if (file_exists('../app/models/Validation.php')) {
+            require_once('../app/models/Validation.php');
+            $validation = new Validation();
+        } else {
+            $logger->debug('Validation object not instantiated. Validation does\'nt exist');
+        }
+
+        if (!$validation->validUsername($username)) {
             $logger->debug("User id is not valid.");
             $have_error = TRUE;
-            $have_error['user_error'] = "User id is not valid";
-
-        } else {
-            $logger->debug("User id is not set.");
-            $have_error = TRUE;
-            $have_error['user_error'] = 'User id is not set.';
+            $errors['user_error'] = "User id is not valid";
         }
-        
-        if ($this->validPassword()){
-            
-        } else {
+
+        if (!$validation->validPassword($password)) {
             $logger->debug("Password is not set.");
             $have_error = TRUE;
-            $have_error['pass_error'] = 'Password is not set.';
+            $errors['pass_error'] = 'Password is not set.';
         }
-        
-        $logger->debug();
+
+        if ($have_error) {
+            $logger->debug("Password or username not valid. Redirect to login page.");
+            return $this->render('/templates/login.html.twig', ['error' => $errors]);
+        } else {
+            $checkVerification = $this->verifyPassword($password, $username);    
+            if (!$checkVerification) {
+                $logger->debug("User does not exist.");
+            } else {
+                $logger->debug("User exists.");
+            }
+        }  
     }
     
-    public function validUsername() {
-        $regexForValidUser = '/([a-zA-Z0-9_-]){3,20}$/';
-        if (preg_match($regexForValidUser, $username)) {
-            
-            return TRUE;
-        }
-        return FALSE;
+    private function verifyPassword($password, $username){
+        $logger = Logger::getInstance();
+        $logger->debug("Create user object to check if user exists.");
+        $user = $this->model('User');
+        $userExist = $user->verifyUser($password, $username);
+        $userExist ? TRUE : FALSE;
     }
-
-    public function validPassword($password) {
-        $regexForValidPassword = '/.{3,20}/';
-        if (preg_match($regexForValidPassword, $password)) {
-            return TRUE;
-        }
-        return FALSE;
-    } 
+ 
 }
-
-
