@@ -23,7 +23,6 @@ class Login extends Controller {
     
     
     public function get(){
-        echo substr($_SERVER['PHP_SELF'], -10);
         $logger = Logger::getInstance();
         $logger->debug('Rendering login page.');
         $this->render('templates/login.html.twig', ['pagetitle'=>'login']);

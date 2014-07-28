@@ -20,7 +20,7 @@ class User {
         //echo $query;
         if ($res = $mysqli->query($query)) {
             if($res) {
-                $logger->info("registered $username");
+                $logger->info("Registered user $username");
             }
         }
 

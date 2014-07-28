@@ -10,14 +10,7 @@ class App {
 
         $url = $this->parseUrl();
         $logger = Logger::getInstance();
-        $logger->info('Is the url empty.');
-        if(isset($url)) {
-            foreach($url as $item){
-                $logger->info('Items in url: ');
-                $logger->info($item);
-            }
-        }
-        $logger->info('End of items in url');
+        $logger->debug('Starting app.');
         
         $file = $_SERVER['DOCUMENT_ROOT'] . "/mvctodolist/app/controllers/" . $url[0] . '.php';
 
