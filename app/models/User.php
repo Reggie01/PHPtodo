@@ -5,7 +5,32 @@ class User {
     public function __construct() {
         
     }
-
+    public function userExists($username) {
+        $logger = Logger::getInstance();
+        $user_exist = False;
+        $mysqli = new mysqli(DB_HOST, DB_USER, DB_NAME, DB_PASS);
+        if($mysqli->connect_errno) {
+            $logger->debug("Could not connect to database.");
+            echo 'Could not connect to database';
+            die();
+        }
+        
+        $query = 'SELECT * FROM ' . USER_TABLE . 'WHERE username = ' . $username;
+        
+        if ($res = $mysqli->query($query)) {
+            
+            if($res->num_rows > 0){
+                $user_exist = True;
+                $logger->debug("User already exists.");
+            }
+            $res->free();
+        } 
+        
+        $mysqli->close();
+        return $user_exist;
+        
+    }
+    
     public function createUser($username, $password) {
         
         $logger = Logger::getInstance();
@@ -14,8 +39,14 @@ class User {
         if ($mysqli->connect_errno) {
             $logger->error('Database connection error');
             echo "Database connection error " . $mysqli->connect_error;
+            die();
         }
-
+        
+        /*
+         * add check to see if user name exists
+         */
+        $this->userExists($username);
+        
         $query = 'INSERT INTO ' . USER_TABLE . " (username, password)VALUES('$username', '$password')";
         //echo $query;
         if ($res = $mysqli->query($query)) {
@@ -37,13 +68,14 @@ class User {
     
     public function verifyUser($username, $password){
         $logger = Logger::getInstance();
-        $logger->debug("Checking database if username and password correct");
-        $verifcation = FALSE;
+        $logger->debug("Connecting to database.");
+        $verification = False;
         
         $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
         if ($mysqli->connect_errno) {
             $logger->error('Database connection error');
             echo "Database connection error " . $mysqli->connect_error;
+            die();
         }
         $password = $this->make_secure($password);
         
@@ -52,18 +84,16 @@ class User {
         $logger->debug($query);
         if ($res = $mysqli->query($query)){
             
-            while($row = $res->fetch_assoc()) {
-                
-                $logger->debug($row['Username']);
+            if ($res->num_rows > 0) {
+                $logger->debug("A match was found.");
+                $verification = True;
             }
             $res->free();
-        } else {
-            $verification = FALSE;
-        }
+        } 
         
         $mysqli->close();
-        $logger->debug("Closing database.");
-        return $verifcation;
+        $logger->debug("Closing database."); 
+        return $verification;
     }    
 
 }

@@ -64,6 +64,9 @@ class SignUp extends Controller {
             $todo = $this->model('User');
             $securepass = $this->make_secure($password);
             $todo->createUser($username, $securepass);
+            /*
+             * Need to add check if createUser Success
+             */
             $logger->debug("User passed all validations redirecting to login page.");
             header('Location:/mvctodolist/public/login');
         }

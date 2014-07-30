@@ -33,7 +33,7 @@ class Login extends Controller {
         $errors = [];
         $username = $_POST['userid'];
         $password = $_POST['pass'];
-        $logger->debug("Users password: " . $password);
+        
         if (file_exists('../app/models/Validation.php')) {
             require_once('../app/models/Validation.php');
             $validation = new Validation();
@@ -57,11 +57,11 @@ class Login extends Controller {
             $logger->debug("Password or username not valid. Redirect to login page.");
             return $this->render('/templates/login.html.twig', ['error' => $errors]);
         } else {
-            $checkVerification = $this->verifyPassword($password, $username);    
-            if (!$checkVerification) {
-                $logger->debug("User does not exist.");
-            } else {
+            $checkVerification = $this->verifyPassword($username, $password);   
+            if ($checkVerification) {
                 $logger->debug("User exists.");
+            } else {
+                $logger->debug("User does not exist.");
             }
         }  
     }
@@ -71,7 +71,8 @@ class Login extends Controller {
         $logger->debug("Create user object to check if user exists.");
         $user = $this->model('User');
         $userExist = $user->verifyUser($password, $username);
-        $userExist ? TRUE : FALSE;
+        $checkUserExist = $userExist ? TRUE : FALSE;
+        return $checkUserExist;
     }
  
 }
