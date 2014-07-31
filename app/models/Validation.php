@@ -44,7 +44,7 @@ class Validation {
     
     public function verifyPassword($password, $verify) {
         $logger = Logger::getInstance();
-        $logger->debug('Verifying password.');
+        $logger->debug('Verifying passwords match.');
         if (!empty($verify)) {
             if ($verify === $password) {
                 $logger->debug('Verification passed.');

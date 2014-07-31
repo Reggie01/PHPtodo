@@ -8,10 +8,9 @@ class User {
     public function userExists($username) {
         $logger = Logger::getInstance();
         $user_exist = False;
-        $mysqli = new mysqli(DB_HOST, DB_USER, DB_NAME, DB_PASS);
+        $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
         if($mysqli->connect_errno) {
-            $logger->debug("Could not connect to database.");
-            echo 'Could not connect to database';
+            $logger->debug("Database connection error " . $mysqli->connect_error);
             die();
         }
         
@@ -42,13 +41,8 @@ class User {
             die();
         }
         
-        /*
-         * add check to see if user name exists
-         */
-        $this->userExists($username);
-        
         $query = 'INSERT INTO ' . USER_TABLE . " (username, password)VALUES('$username', '$password')";
-        //echo $query;
+        
         if ($res = $mysqli->query($query)) {
             if($res) {
                 $logger->info("Registered user $username");

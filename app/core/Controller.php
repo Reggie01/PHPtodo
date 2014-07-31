@@ -16,7 +16,6 @@ class Controller {
         return $request;
     }
     
-
     public function render($view, $data = []) {
         $filename = '../vendor/autoload.php';
 
