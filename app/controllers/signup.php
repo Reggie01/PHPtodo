@@ -39,7 +39,8 @@ class SignUp extends Controller {
             return $this->render('templates/signup.html', ['error' => $this->errors, 'username' => $username]);
         } else {
             $todo = $this->model('User');
-            if($todo->userExists($username)){
+            if(!($todo->userExists($username))){
+                
                 $this->createUser($username, $password, $securepass, $todo);    
             } else {
                 $logger->debug('Username already exists.');
@@ -91,7 +92,7 @@ class SignUp extends Controller {
         $logger = Logger::getInstance();
         $securepass = $this->make_secure($password);
         $todo->createUser($username, $securepass);
-        $logger->debug("User passed all validations redirecting to login page.");
+        $logger->debug("New user created redirecting to login page.");
         header('Location:/mvctodolist/public/login'); 
     }
     

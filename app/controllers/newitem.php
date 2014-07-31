@@ -8,10 +8,10 @@ class NewItem extends Controller {
 
     public function index() {
         if ($this->getServerRequest() == 'GET') {
-            
+
             $this->get();
         } else if ($this->getServerRequest() == 'POST') {
-            
+
             $this->post();
         }
     }
