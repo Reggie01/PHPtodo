@@ -7,15 +7,12 @@ class Home extends Controller {
     }
 
     public function index() {
-        if ($this->getServerRequest() == 'GET') {
             $this->get();
-        } else if ($this->getServerRequest() == 'POST') {
-            $this->post();
-        }
     }
 
     public function get() {
-
+        $logger = Logger::getInstance();
+        $logger->debug('Retrieving all todos.');
         $todos = $this->model('Todo');
 
         $listOfTodos = $todos->getAll();
@@ -24,9 +21,9 @@ class Home extends Controller {
     }
 
     public function edit($value) {
-        echo $this->getServerRequest();
-
+        $logger = Logger::getInstance();
         if ($this->getServerRequest() == 'POST') {
+            $logger->debug('Editing post');
             return $this->editPost($value);
         }
 
@@ -36,12 +33,12 @@ class Home extends Controller {
         $this->render('templates/edit.html', ['content' => $item['item'], 'pagetitle' => 'Edit Todo']);
     }
 
-    public function editPost($value) {
-
+    private function editPost($value) {
+        $logger = Logger::getInstance();
         if (!empty($_POST['content'])) {
             $updatedContent = $_POST['content'];
         } else {
-
+            $logger->debug('Post content was removed by user.');
             return $this->render('templates/edit.html', ['pagetitle' => 'Edit Todo', 'error' => 'Don\'t forget to edit content']);
         }
 
@@ -52,8 +49,9 @@ class Home extends Controller {
     }
 
     public function delete($value) {
-
+        $logger = Logger::getInstance();
         $todo = $this->model('Todo');
+        $logger->debug('User attempting to delete todo: ' . $value);
         $todo->delete($value);
 
         header('Location:/mvctodolist/public');
