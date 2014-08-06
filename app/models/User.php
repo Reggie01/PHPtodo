@@ -27,6 +27,7 @@ class User {
         }
 
         $mysqli->close();
+        $logger->debug('Closing database.');
         return $user_exist;
     }
 
@@ -73,7 +74,7 @@ class User {
         }
         $password = $this->make_secure($password);
 
-        $query = "SELECT Username, password FROM user WHERE Username = '$username' AND password = '$password'";
+        $query = "SELECT User_id, Username FROM user WHERE Username = '$username' AND password = '$password'";
         $logger->debug('Building query..');
 
         if ($res = $mysqli->query($query)) {
@@ -82,8 +83,13 @@ class User {
                 $logger->debug("A match was found.");
                 $verification = True;
                 session_start();
-                $_SESSION['username'] = $username;
+                
+                while($row = $res->fetch_assoc()){
+                    $_SESSION['username'] = $row['Username'];
+                    $_SESSION['user_id'] = $row['User_id'];
+                }
                 $logger->debug($_SESSION['username']);
+                $logger->debug($_SESSION['user_id']);
             }
             $res->free();
         }

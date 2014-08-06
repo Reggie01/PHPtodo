@@ -1,6 +1,9 @@
-{% extends 'templates/base.html' %}
+{% extends loggedIn ? "templates/loggedInBase.html.twig" : "templates/base.html" %}
 
 {% block content %}    
+    {% if loggedIn %}
+        <div>Welcome {{ username }}</div>
+    {% endif %}
     {% for todo in todos %}
         <div class="post">
             <div class= "post-content" id ='{{ todo.id }}'>{{ todo.item }}</div><a href = '/mvctodolist/public/home/edit/{{ todo.id }}'>Edit</a><a href= '/mvctodolist/public/home/delete/{{ todo.id }}'>Delete</a>

@@ -3,25 +3,46 @@
 class Home extends Controller {
 
     public function __construct() {
-        
+        $logger = Logger::getInstance();
+        session_start();
+        if(isset($_SERVER['username'])){
+            $logger->debug($_SESSION['username']);
+            $logger->debug($_SESSION['user_id']);
+        }
     }
 
     public function index() {
-            $this->get();
+        $isLoggedIn = isset($_SESSION['username']);
+        $this->get($isLoggedIn);
     }
-
-    public function get() {
+    
+    private function get($isLoggedIn) {
         $logger = Logger::getInstance();
         $logger->debug('Retrieving all todos.');
-        $todos = $this->model('Todo');
-
-        $listOfTodos = $todos->getAll();
-
-        $this->render('templates/todos.html', ['todos' => $listOfTodos, 'pagetitle' => 'Todos']);
+        $isLoggedIn ? $this->getLoggedIn($isLoggedIn) : $this->getLoggedOut();
+        
     }
-
+    
+    private function getLoggedIn($isLoggedIn){
+        $logger = Logger::getInstance();
+        $logger->debug('User logged in.');
+        $todos = $this->model('Todo');
+        $listOfTodos = $todos->getAll($_SESSION['user_id']);
+        $username = $_SESSION['username'];
+        return $this->render('templates/todos.html', ['todos' => $listOfTodos, 'pagetitle' => 'Todos', 'loggedIn' => $isLoggedIn, 'username' => $username]);
+    }
+    
+    private function getLoggedOut() {
+        $logger = Logger::getInstance();
+        $logger->debug('User not logged in.');
+        $todos = $this->model('Todo');
+        $listOfTodos = $todos->getAll();
+        return $this->render('templates/todos.html', ['todos' => $listOfTodos, 'pagetitle' => 'Todos']);
+    }
+    
     public function edit($value) {
         $logger = Logger::getInstance();
+        $isLoggedIn = isset($_SESSION['username']);
         if ($this->getServerRequest() == 'POST') {
             $logger->debug('Editing post');
             return $this->editPost($value);
@@ -30,7 +51,7 @@ class Home extends Controller {
         $todo = $this->model('Todo');
         $item = $todo->getEditPage($value);
 
-        $this->render('templates/edit.html', ['content' => $item['item'], 'pagetitle' => 'Edit Todo']);
+        $this->render('templates/edit.html', ['content' => $item['item'], 'pagetitle' => 'Edit Todo', 'loggedIn' => $isLoggedIn]);
     }
 
     private function editPost($value) {
