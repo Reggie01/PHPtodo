@@ -56,6 +56,7 @@ class User {
 
     public function make_secure($password) {
         /** salt should be kept in a separate file * */
+        /** should be in Class security in separate file **/
         $salt = 'jenkins';
         $securepass = hash_hmac('sha256', $password, $salt);
         return $securepass;

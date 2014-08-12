@@ -49,7 +49,7 @@ class Home extends Controller {
         }
 
         $todo = $this->model('Todo');
-        $item = $todo->getEditPage($value);
+        $item = $todo->getTodoForEdit($value);
 
         $this->render('templates/edit.html', ['content' => $item['item'], 'pagetitle' => 'Edit Todo', 'loggedIn' => $isLoggedIn]);
     }

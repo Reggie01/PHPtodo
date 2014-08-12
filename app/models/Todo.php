@@ -82,7 +82,7 @@ class Todo {
         $logger->debug('Closing database...');
     }
 
-    public function getEditPage($value) {
+    public function getTodoForEdit($value) {
         $logger = Logger::getInstance();
 
         $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
@@ -97,7 +97,6 @@ class Todo {
             if ($res->num_rows > 0) {
                 $row = $res->fetch_assoc();
                 $item = array(
-                    'id' => $row['id'],
                     'item' => $row['list']
                 );
                 $logger->debug('Retrieved record for edit page.');

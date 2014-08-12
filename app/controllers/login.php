@@ -1,13 +1,14 @@
 <?php
 
 class Login extends Controller {
-
+    
+    /** $validation object **/
     public $validation;
     public $errors = array();
     public $have_error = False;
 
     public function __construct() {
-        
+            
     }
 
     public function index() {
@@ -36,8 +37,6 @@ class Login extends Controller {
         $username = $_POST['userid'];
         $password = $_POST['pass'];
 
-        $this->setValidation();
-
         $this->checkUserInputsValid($username, $password);
 
         if ($this->have_error) {
@@ -56,15 +55,13 @@ class Login extends Controller {
         }
     }
 
-    private function setValidation() {
+    public function setValidation($validation) {
         $logger = Logger::getInstance();
-        if (file_exists('../app/models/Validation.php')) {
-            require_once('../app/models/Validation.php');
-            $validation = new Validation();
-            $this->validation = $validation;
-        } else {
-            $logger->debug('Validation object not instantiated. Validation does\'nt exist');
+        if(!isset($validation)){
+            $logger->debug("Validation method not set.");
+            return; 
         }
+        $this->validation = $validation;
     }
 
     private function checkUserInputsValid($username, $password) {
