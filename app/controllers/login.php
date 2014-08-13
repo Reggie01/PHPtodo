@@ -6,6 +6,7 @@ class Login extends Controller {
     public $validation;
     public $errors = array();
     public $have_error = False;
+    public $hello = 'hello';
 
     public function __construct() {
             
@@ -64,7 +65,7 @@ class Login extends Controller {
         $this->validation = $validation;
     }
 
-    private function checkUserInputsValid($username, $password) {
+    public function checkUserInputsValid($username, $password) {
         $this->isValidUsername($username);
         $this->isValidPassword($password);
     }

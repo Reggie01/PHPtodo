@@ -4,6 +4,7 @@
 app/dbconstants.php
 app/security.php
 
+
 # Logs and databases #
 ######################
 *.log
@@ -17,3 +18,8 @@ app/core/logs
 .DS_Store
 .DS_Store?
 /nbproject/private/
+
+# Dependency Folder #
+#####################
+vendor
+
