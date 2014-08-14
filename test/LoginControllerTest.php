@@ -11,9 +11,9 @@
          public function userInputValues() {
             return [
 
-                ['fo', 'bar'],
-                ['foo', 'foo'],
-                ['green', 'blue']
+                ['fo', './,'],
+                ['...', '456'],
+                ['121', 'blue']
 
             ];
         }
@@ -38,7 +38,7 @@
             // Calling $stub->verifyUser() will now return 'true'
             $this->assertEquals('true', $stub->verifyUser('1', '2', '3'));
             
-            $this->login->verifyUserExists('foo', 'foo', $stub);
+            //$this->login->verifyUserExists('foo', 'foo', $stub);
             
         }
         
