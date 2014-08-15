@@ -10,7 +10,7 @@ class WebTest extends PHPUnit_Extensions_SeleniumTestCase
        
     protected function setUp()
     {   
-        $this->setBrowser('iexplore');
+        $this->setBrowser('firefox');
         $this->setBrowserUrl('http://localhost/mvctodolist/public/');
     }
     

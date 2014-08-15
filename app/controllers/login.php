@@ -30,7 +30,7 @@ class Login extends Controller {
     public function get() {
         $logger = Logger::getInstance();
         $logger->debug('Rendering login page.');
-        $this->render('templates/login.html.twig', ['pagetitle' => 'login']);
+        $this->render('templates/login.html.twig', ['pagetitle' => 'Login']);
     }
 
     public function post() {
