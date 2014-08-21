@@ -4,10 +4,9 @@
     {% if loggedIn %}
         <div>Welcome {{ username }}</div>
     {% endif %}
-    <div id ="blue">blue</div>
     {% for todo in todos %}
         <div class="post">
-            <div class= "post-content" id ='{{ todo.id }}'>{{ todo.item }}</div><a href = '/mvctodolist/public/home/edit/{{ todo.id }}'>Edit</a><a href= '/mvctodolist/public/home/delete/{{ todo.id }}'>Delete</a>
+            <div class= "post-content">{{ todo.item }}</div><a href = '/mvctodolist/public/home/edit/{{ todo.id }}'>Edit</a><a href= '/mvctodolist/public/home/delete/{{ todo.id }}'>Delete</a>
         </div>
     {% endfor %}    
 {% endblock %}    

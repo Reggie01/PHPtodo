@@ -19,11 +19,15 @@ class LoginPage2Test extends PHPUnit_Extensions_Selenium2TestCase
         
     }
     
-    public function testDivName()
-    {
-        $this->url('http://localhost/mvctodolist/public');
-        //$this->assertText
+    public function testEditInputValueBlank(){
+        $this->url('http://localhost/mvctodolist/public/');
+        $this->click('link=Edit');
+        $this->type('name=content');
+        $this->click('id=edit_content');
+        $this->assertText('id=edit_error', '');
     }
+    
+   
 }
 
 ?>
